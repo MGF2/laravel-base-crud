@@ -37,9 +37,17 @@ class ArticoloController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        if ( empty($data['codice']) || empty($data['nome']) || empty($data['quantità']) )  {
-          return back()->withInput();
-        }
+        // if ( empty($data['codice']) || empty($data['nome']) || empty($data['quantità']) )  {
+        //   return back()->withInput();
+        // }
+
+        //validate lo fa in automatico
+        $request->validate([
+          'nome' => 'required|max:50|min:2',
+          'codice' => 'required|numeric|min:111111|max:999999',
+          'quantità' => 'required|numeric|min:0|max:10000',
+          'taglia' => 'required',
+        ]);
         $articoloNew = new Articolo;
         $articoloNew->codice = $data['codice'];
         $articoloNew->nome = $data['nome'];
@@ -49,7 +57,11 @@ class ArticoloController extends Controller
         $articoloNew->taglia = $data['taglia'];
         $articoloNew->descrizione = $data['descrizione'];
         $saved = $articoloNew->save();
-        dd($saved);
+        // dd($saved);
+        if($saved) {
+          return redirect()->route('articoli.index');
+        }
+
     }
 
     /**
@@ -94,6 +106,7 @@ class ArticoloController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $id->delete();
+        return redirect()->route('articoli.index');
     }
 }

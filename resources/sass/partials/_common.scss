@@ -1,0 +1,11 @@
+body {
+  background-color: #343a40;
+  .table {
+    max-width: 1000px;
+    margin: 25px auto 0;
+    border: 1px solid #e9ecef;
+    th, td {
+      line-height: 35px;
+    }
+  }
+}

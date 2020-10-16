@@ -1,3 +1,4 @@
-input, label {
-  display: block;
-}
+@import "~bootstrap";
+@import "partials/_common";
+@import "partials/_btn";
+@import "partials/_main";
