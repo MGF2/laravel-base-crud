@@ -34,14 +34,14 @@
         <td>{{ $articolo->quantità }}</td>
         <td>{{ $articolo->descrizione }}</td>
         <td>
-          <a href="{{route('articoli.create')}}" type="button" class="btn btn-secondary" >Edit</a>
-          <button type="button" class="btn btn-danger">Delete</button>
+          <a href="{{route('articoli.create', $articolo->id )}}" type="button" class="btn btn-secondary" >Edit</a>
+          {{-- <button type="button" class="btn btn-danger">Delete</button> --}}
           {{-- DELETE INPUT TO FIX --}}
-          {{-- <form action="{{ route('articoli.destroy', $articolo->id )}}" method="post" class="form-inline">
+          <form action="{{ route('articoli.destroy', $articolo->id)}}" method="post" class="form-inline">
             @csrf
             @method('DELETE')
             <input type="submit" class="btn btn-danger" value="Delete">
-          </form> --}}
+          </form>
 
         </td>
       </tr>

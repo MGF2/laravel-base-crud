@@ -70,9 +70,9 @@ class ArticoloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Articolo $articolo)
     {
-        //
+        return view('show',compact('articolo'));
     }
 
     /**
@@ -81,9 +81,9 @@ class ArticoloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Articolo $articolo)
     {
-        //
+        return view('show',compact('articolo'));
     }
 
     /**
@@ -93,9 +93,13 @@ class ArticoloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Articolo $articolo)
     {
-        //
+      $data = $request->all();
+      //inserire validate
+      $articolo->update($data);
+      return view('create',compact('articolo'));
+
     }
 
     /**
@@ -106,7 +110,15 @@ class ArticoloController extends Controller
      */
     public function destroy($id)
     {
-        $id->delete();
-        return redirect()->route('articoli.index');
+        // Articolo $articolo non funzionante
+        // $deleted = $articolo->delete();
+        // dd($deleted);
+
+        $data = Articolo::all();
+        $deleted = $data->find($id);
+        $cancellato = $deleted->delete();
+        if($cancellato) {
+          return redirect()->route('articoli.index');
+        }
     }
 }
